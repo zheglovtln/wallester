@@ -1,0 +1,61 @@
+{{define "head"}}
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    <link rel="stylesheet" href="/static/css/datatables.bootstrap.css">
+    <script type="text/javascript" charset="utf8" src="/static/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="/static/js/dataTables.bootstrap4.min.js"></script>
+{{end}}
+
+
+
+{{define "content"}}
+
+    <main role="main" class="container">
+
+        <div class="customer-table">
+            <table id="customertable" class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">BirthDate</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </main>
+        <script>
+            window.onload = function() {
+                var table = $('#customertable').DataTable({
+                    "processing": true,
+                    "serverSide": false,
+                    "searching": false,
+                    ajax: {
+                        url: '{{.search}}',
+                        "type": "{{.type}}",
+                    },
+                    columns: [
+                        {data: 'id'},
+                        {data: 'firstname'},
+                        {data: 'lastname'},
+                        {data: 'birthdate'},
+                        {data: 'gender'},
+                        {data: 'Email'},
+                        {data: 'address'},
+                        {
+                            "mRender": function(data, type, row) {
+                                return '<a class="btn btn-warning btn-sm" href=/edit/' + row.id + '>' + 'Edit' + '</a>';
+                            },
+                            "orderable": false
+                        }
+                    ],
+                });
+            }
+        </script>
+{{end}}
+

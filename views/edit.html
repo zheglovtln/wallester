@@ -1,0 +1,66 @@
+{{define "head"}}
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  href="/static/css/datepicker.min.css" rel="stylesheet">
+    <script src="/static/js/jquery.validate.min.js"></script>
+{{end}}
+{{define "content"}}
+    <script>
+    var apiurl = {{.request}}
+    var method = "PUT"
+
+    url = 'ws://localhost/ws/{{.customer.ID}}';
+    c = new WebSocket(url);
+    c.onmessage = function(msg){
+        console.log(msg)
+    }
+    c.onopen = function (data) {
+        console.log(data)
+    }
+    c.onclose = function(event) {
+        console.log(event)
+    }
+
+    </script>
+    <div class="customer-edit">
+        <pre id="output"></pre>
+        <form id="reqform" name="reqform" autocomplete="off">
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="firstname" name="FirstName" class="form-control" id="firstname" value="{{.customer.FirstName}}" placeholder="Enter firstname">
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="lastname" name="LastName" class="form-control" id="lastname" value="{{.customer.LastName}}" placeholder="Enter lastname">
+            </div>
+            <div class="form-group">
+                <label for="birthdate">Birth Date</label>
+                <input type="birthdate" data-toggle="birthdate" name="BirthDate" class="form-control" id="birthdate" value="{{.customer.BirthDate}}" placeholder="Enter birth date">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="Gender">
+                    {{if (eq .customer.Gender "Male")}}
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                    {{else}}
+                    <option value="Female" selected>Female</option>
+                    <option value="Male">Male</option>
+                    {{end}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" name="Email" class="form-control" id="email" value="{{.customer.Email}}" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <input type="address" name="Address" class="form-control" id="address" value="{{.customer.Address}}" placeholder="Enter address">
+            </div>
+            <button type="button" onclick="Back()" class="btn btn-danger">Back</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+        <script src="/static/js/customer.js"></script>
+{{end}}
+

@@ -1,0 +1,21 @@
+{{define "head"}}
+    <link rel="stylesheet" href="/static/css/main.css">
+{{end}}
+{{define "content"}}
+<h1>Search</h1>
+    <div class="customer-edit" >
+        <form id="reqform" method="POST" action="/">
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="firstname" name="FirstName" class="form-control" id="firstname" value="{{.customer.FirstName}}" placeholder="Enter firstname">
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="lastname" name="LastName" class="form-control" id="lastname" value="{{.customer.LastName}}" placeholder="Enter lastname">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    {{.test}}
+{{end}}
